@@ -66,8 +66,7 @@ export default class App extends PureComponent {
 | width            | components width, isRequiored                  | number   |                 |
 | className        | components className, isRequiored              | string   |                 |
 | style            | components style                               | object   | null            |
-| index            | display the index in the children when
-                     initializing, starting from 1                  | number   | 1               |
+| index            | display the index in the children when initializing, starting from 1                                                                   | number   | 1               |
 | timer            | carousel time                                  | number   | 4000            |
 | infinite         | whether to loop                                | bool     | true            |
 | speed            | speed of animation                             | number   | 10              |
