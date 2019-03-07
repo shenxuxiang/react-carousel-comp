@@ -98,10 +98,15 @@ export default class Carousel extends PureComponent {
     this.props.infinite && this.startInterval();
   }
 
+  componentWillUnmount() {
+    this.endInterval();
+  }
+
   startInterval = () => {
-    this.timer = setInterval(() => {
-      const { index } = this.state;
-      this.animation(index + 1);
+    this.timer = setTimeout(() => {
+      this.endInterval();
+      this.animation(this.state.index + 1);
+      this.startInterval();
     }, this.props.timer);
   }
 
@@ -118,9 +123,6 @@ export default class Carousel extends PureComponent {
     this.startX = event.touches[0].clientX;
     this.startY = event.touches[0].clientY;
     this.sliderStatus = 'running';
-    this.currentPos = null;
-    this.offsetX = null;
-    this.offsetY = null;
   }
 
   handleTouchMove = (event) => {
@@ -160,6 +162,9 @@ export default class Carousel extends PureComponent {
   handleTouchEnd = () => {
     // 当没有触发touchMove，或者判断出是y方向的滑动时，不会进行任何操作，并初始化滑动状态
     if (this.offsetX == null || this.sliderStatus === 'vertical') {
+      this.currentPos = null;
+      this.offsetX = null;
+      this.offsetY = null;
       this.props.infinite && this.startInterval();
       return;
     }
@@ -188,6 +193,9 @@ export default class Carousel extends PureComponent {
         this.animation(index);
       }
     }
+    this.currentPos = null;
+    this.offsetX = null;
+    this.offsetY = null;
     this.props.infinite && this.startInterval();
   }
 
